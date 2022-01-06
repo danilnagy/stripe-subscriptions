@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^3.1.0",
+    "node-fetch": "2.6.6",
     "stripe": "^8.195.0"
   }
 }
