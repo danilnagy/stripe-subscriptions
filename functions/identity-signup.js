@@ -4,8 +4,6 @@ const { faunaFetch } = require("./utils/fauna");
 exports.handler = async (event) => {
   const { user } = JSON.parse(event.body);
 
-  console.log(event.body);
-
   // create a new customer in Stripe
   const customer = await stripe.customers.create({ email: user.email });
 
@@ -16,7 +14,7 @@ exports.handler = async (event) => {
   });
 
   // store the Netlify and Stripe IDs in Fauna
-  await faunaFetch({
+  const ret = await faunaFetch({
     query: `
       mutation ($netlifyID: ID!, $stripeID: ID!) {
         createUser(data: { netlifyID: $netlifyID, stripeID: $stripeID }) {
@@ -30,6 +28,8 @@ exports.handler = async (event) => {
       stripeID: customer.id,
     },
   });
+
+  console.log(ret);
 
   return {
     statusCode: 200,
