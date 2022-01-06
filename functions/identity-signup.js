@@ -14,7 +14,7 @@ exports.handler = async (event) => {
   });
 
   // store the Netlify and Stripe IDs in Fauna
-  const ret = await faunaFetch({
+  const result = await faunaFetch({
     query: `
       mutation ($netlifyID: ID!, $stripeID: ID!) {
         createUser(data: { netlifyID: $netlifyID, stripeID: $stripeID }) {
@@ -28,8 +28,7 @@ exports.handler = async (event) => {
       stripeID: customer.id,
     },
   });
-
-  console.log(ret);
+  console.log(result);
 
   return {
     statusCode: 200,
