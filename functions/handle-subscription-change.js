@@ -34,10 +34,6 @@ exports.handler = async ({ body, headers }, context) => {
     });
 
     const { netlifyID } = result.data.getUserByStripeID;
-
-    // take the first word of the plan name and use it as the role
-    // const plan = subscription.items.data[0].plan.nickname;
-    // const role = plan.split(" ")[0].toLowerCase();
     const product_id = subscription.items.data[0].plan.product;
 
     console.log(product_id);
@@ -46,7 +42,9 @@ exports.handler = async ({ body, headers }, context) => {
 
     console.log(product);
 
-    const role = product.metadata.role;
+    // take the first word of the plan name and use it as the role
+    const role = product.name.split(" ")[0].toLowerCase();
+    // const role = product.metadata.role;
 
     console.log(role);
 
